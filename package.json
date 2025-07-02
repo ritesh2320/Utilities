@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@react-native-camera-roll/camera-roll": "^7.10.1",
     "@react-native-community/image-editor": "^4.3.0",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-native/new-app-screen": "0.80.0",

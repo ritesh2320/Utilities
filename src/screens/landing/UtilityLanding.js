@@ -7,23 +7,26 @@ import Header from '../../components/Header';
 // import ResizerIcon from '../../assets/images/resizer.svg';
 
 const UtilityLanding = props => {
-  const onHandleCardPress = () => {
+  const onHandleResizerCardPress = () => {
     //Navigate to image picker
     console.log('\n\n onHandleCardPress: ', props?.navigation);
     props?.navigation?.push('ImageResizer', { isFromLanding: true });
+  };
+
+  const onHandlePassManagerCardPress = () => {
+    console.log('\n\n onHandlePassManagerCardPress: ', props?.navigation);
+    props?.navigation?.navigate('PasswordManager', { isFromLanding: true });
   };
   return (
     <RootView>
       <Header title="Utilities" />
       <ScrollView>
         <View style={styles.cardContainer}>
-          <Card onPress={onHandleCardPress}>
+          <Card onPress={onHandleResizerCardPress}>
             {/* <ResizerIcon width={24} height={24} /> */}
             Image Cropper
           </Card>
-          <Card onPress={() => console.log('Image Resize pressed')}>
-            Password manager
-          </Card>
+          <Card onPress={onHandlePassManagerCardPress}>Password manager</Card>
           <Card onPress={() => console.log('Image Resize pressed')}>
             Image Resize
           </Card>

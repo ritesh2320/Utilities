@@ -1,3 +1,80 @@
+import React, { useEffect, useState } from 'react';
+import { Alert, Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+// import { CameraRoll } from '@react-native-camera-roll/camera-roll';
+// import * as CameraRoll from '@react-native-camera-roll/camera-roll';
+import PrimaryButton from '../../components/PrimaryButton';
+import styles from './style';
+import RootView from '../../components/RootView';
+import Header from '../../components/Header';
+
+const ImageResize = (props: any) => {
+  const [photoUri, setPhotoUri] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   console.log('\n\n PROPS: ', props);
+  // }, []);
+
+  const handleCameraLaunch = async () => {
+    console.log('\n\n Launching');
+
+    try {
+      const image = await ImagePicker.openCamera({
+        cropping: true,
+        width: 300,
+        height: 400,
+        includeBase64: false,
+      });
+      setPhotoUri(image.path);
+    } catch (error) {
+      console.log('Camera error or cancelled', error);
+    }
+  };
+
+  const handleGalleryPick = async () => {
+    try {
+      const image = await ImagePicker.openPicker({
+        cropping: true,
+        width: 300,
+        height: 400,
+        includeBase64: false,
+        quality: 1,
+      });
+      setPhotoUri(image.path);
+      console.log(image.path);
+      // await CameraRoll.CameraRoll.saveAsset(image.path, { type: 'photo' });
+    } catch (error) {
+      console.log('Picker error or cancelled', error);
+    }
+  };
+
+  return (
+    // <RootView>
+    <RootView>
+      <Header title="Image Cropper" />
+      <View style={styles.rootContainer}>
+        <View style={styles.imageContainer}>
+          {photoUri && (
+            <Image
+              source={{ uri: photoUri }}
+              style={{ width: '100%', height: '100%' }}
+            />
+          )}
+        </View>
+        <View style={styles.buttonsContainer}>
+          <PrimaryButton onPress={handleCameraLaunch}>Take Photo</PrimaryButton>
+          <PrimaryButton onPress={handleGalleryPick}>
+            Pick from Gallery
+          </PrimaryButton>
+        </View>
+      </View>
+    </RootView>
+    // </RootView>
+  );
+};
+
+export default ImageResize;
+
 // import { useEffect, useState } from 'react';
 // import { Alert, Image, StyleSheet, View } from 'react-native';
 // import {
@@ -93,79 +170,3 @@
 // };
 
 // export default ImageResize;
-
-import React, { useEffect, useState } from 'react';
-import { Alert, Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
-import { CameraRoll } from '@react-native-camera-roll/camera-roll';
-import PrimaryButton from '../../components/PrimaryButton';
-import styles from './style';
-import RootView from '../../components/RootView';
-import Header from '../../components/Header';
-
-const ImageResize = (props: any) => {
-  const [photoUri, setPhotoUri] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   console.log('\n\n PROPS: ', props);
-  // }, []);
-
-  const handleCameraLaunch = async () => {
-    console.log('\n\n Launching');
-
-    try {
-      const image = await ImagePicker.openCamera({
-        cropping: true,
-        width: 300,
-        height: 400,
-        includeBase64: false,
-      });
-      setPhotoUri(image.path);
-    } catch (error) {
-      console.log('Camera error or cancelled', error);
-    }
-  };
-
-  const handleGalleryPick = async () => {
-    try {
-      const image = await ImagePicker.openPicker({
-        cropping: true,
-        width: 300,
-        height: 400,
-        includeBase64: false,
-        quality: 1,
-      });
-      setPhotoUri(image.path);
-      console.log(image.path);
-      await CameraRoll.saveAsset(image.path);
-    } catch (error) {
-      console.log('Picker error or cancelled', error);
-    }
-  };
-
-  return (
-    // <RootView>
-    <RootView>
-      <Header title="Image Cropper" />
-      <View style={styles.rootContainer}>
-        <View style={styles.imageContainer}>
-          {photoUri && (
-            <Image
-              source={{ uri: photoUri }}
-              style={{ width: '100%', height: '100%' }}
-            />
-          )}
-        </View>
-        <View style={styles.buttonsContainer}>
-          <PrimaryButton onPress={handleCameraLaunch}>Take Photo</PrimaryButton>
-          <PrimaryButton onPress={handleGalleryPick}>
-            Pick from Gallery
-          </PrimaryButton>
-        </View>
-      </View>
-    </RootView>
-    // </RootView>
-  );
-};
-
-export default ImageResize;
