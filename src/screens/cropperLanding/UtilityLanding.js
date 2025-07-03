@@ -15,7 +15,7 @@ const UtilityLanding = props => {
 
   const onHandlePassManagerCardPress = () => {
     console.log('\n\n onHandlePassManagerCardPress: ', props?.navigation);
-    props?.navigation?.navigate('PasswordManager', { isFromLanding: true });
+    props?.navigation?.navigate('Home', { isFromLanding: true });
   };
   return (
     <RootView>

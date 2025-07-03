@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-// import { CameraRoll } from '@react-native-camera-roll/camera-roll';
-// import * as CameraRoll from '@react-native-camera-roll/camera-roll';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import PrimaryButton from '../../components/PrimaryButton';
 import styles from './style';
 import RootView from '../../components/RootView';
@@ -20,12 +19,13 @@ const ImageResize = (props: any) => {
 
     try {
       const image = await ImagePicker.openCamera({
-        cropping: true,
+        // cropping: true,
         width: 300,
         height: 400,
         includeBase64: false,
       });
       setPhotoUri(image.path);
+      CameraRoll.save(image.path, { type: 'photo' });
     } catch (error) {
       console.log('Camera error or cancelled', error);
     }
@@ -41,6 +41,7 @@ const ImageResize = (props: any) => {
         quality: 1,
       });
       setPhotoUri(image.path);
+      CameraRoll.save(image.path, { type: 'photo' });
       console.log(image.path);
       // await CameraRoll.CameraRoll.saveAsset(image.path, { type: 'photo' });
     } catch (error) {
